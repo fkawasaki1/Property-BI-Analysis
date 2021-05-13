@@ -20,7 +20,8 @@ SELECT j.JobDescription, s.Status FROM Job j INNER JOIN JobStatus s ON j.JobStat
 
 SELECT p.Name, s.Firstname, s.LastName, y.PaymentAmount, CASE WHEN y.PaymentFrequencyId = 1 THEN 'Weekly' WHEN y.PaymentFrequencyId = 2 THEN 'Fortnightly' WHEN y.PaymentFrequencyId = 3 THEN 'Monthly' END Frequency FROM Person s INNER JOIN Tenant t ON s.PhysicalAddressId = t.ResidentialAddress INNER JOIN TenantProperty y ON t.Id = y.TenantId INNER JOIN Property p ON y.PropertyId = p.Id INNER JOIN OwnerProperty o ON p.Id = o.PropertyId WHERE OwnerId = 1426 AND y.IsActive = 1
 
---Task 2 - Query Dataset
+
+--Task 2 - DataSet
 
 SELECT
 s.FirstName,
@@ -30,7 +31,7 @@ o.OwnershipStatusId,
 p.Name as Property_Name, 
 e.Description as Expense, 
 e.Amount as Expense_Amount, 
-e.Date, 
+CONVERT(varchar, e.Date, 103) as Date,
 a.Street, 
 a.Number, 
 p.Bedroom, 
