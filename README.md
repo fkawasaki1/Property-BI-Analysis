@@ -22,4 +22,29 @@ SELECT p.Name, s.Firstname, s.LastName, y.PaymentAmount, CASE WHEN y.PaymentFreq
 
 --Task 2 - Query Dataset
 
-SELECT s.FirstName, s.LastName, o.OwnerId, o.OwnershipStatusId, p.Name as Property_Name, e.Description as Expense, e.Amount as Expense_Amount, e.Date, a.Street, a.Number, p.Bedroom, p.Bathroom, r.Amount as Rental_Payment FROM PropertyExpense e INNER JOIN Property p ON p.Id = e.PropertyId INNER JOIN Address a ON p.AddressId = a.AddressId INNER JOIN PropertyRentalPayment r ON p.Id = r.PropertyId INNER JOIN OwnerProperty o ON p.Id = o.PropertyId INNER JOIN TenantProperty y ON o.PropertyId = y.PropertyId INNER JOIN Tenant t ON t.Id = y.TenantId INNER JOIN Person s ON s.PhysicalAddressId = t.ResidentialAddress WHERE p.Name = 'Property A' AND o.OwnershipStatusId = 1 OR o.OwnershipStatusId = 2
+SELECT
+s.FirstName,
+s.LastName,
+o.OwnerId,
+o.OwnershipStatusId,
+p.Name as Property_Name, 
+e.Description as Expense, 
+e.Amount as Expense_Amount, 
+e.Date, 
+a.Street, 
+a.Number, 
+p.Bedroom, 
+p.Bathroom, 
+r.Amount as Rental_Payment
+FROM PropertyExpense e
+INNER JOIN Property p
+ON p.Id = e.PropertyId
+INNER JOIN Address a
+ON p.AddressId = a.AddressId
+INNER JOIN PropertyRentalPayment r
+ON p.Id = r.PropertyId
+INNER JOIN OwnerProperty o
+ON p.Id = o.PropertyId
+INNER JOIN Person s
+ON o.OwnerId = s.Id
+WHERE p.Name = 'Property A' AND o.OwnershipStatusId = 1 OR o.OwnershipStatusId = 2
